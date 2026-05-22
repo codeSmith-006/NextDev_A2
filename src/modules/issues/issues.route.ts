@@ -8,5 +8,7 @@ router.post("/", issuesController.createIssues);
 
 // get issues
 router.get("/", issuesController.getIssues);
+// get issues by id
+router.get("/:id", issuesController.getSingleIssue)
 
 export const issuesRouter = router;
