@@ -5,6 +5,7 @@ import {
   successResponse,
 } from "../../utility/sendResponse/sendResponse";
 
+// posting issue controller
 const createIssues = async (req: Request, res: Response) => {
   try {
     const issueCreateResponse = await issuesServices.createIssueIntoDB(
@@ -24,6 +25,18 @@ const createIssues = async (req: Request, res: Response) => {
   }
 };
 
+// get all issues
+const getIssues = async (req: Request, res: Response) => {
+  try {
+    const sort = req.query.sort as string;
+    const getUserResponse = await issuesServices.getIssuesFromDB(sort);
+
+    console.log("all issues from controller: ", getUserResponse);
+  } catch (error: any) {
+    errorResponse(res, 400, error.message, error);
+  }
+};
 export const issuesController = {
   createIssues,
+  getIssues,
 };
