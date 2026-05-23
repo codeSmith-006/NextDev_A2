@@ -1,9 +1,9 @@
 import type { Request, Response } from "express";
-import { usersServices } from "./users.service";
+import { usersServices } from "./users.service.js";
 import {
   errorResponse,
   successResponse,
-} from "../../utility/sendResponse/sendResponse";
+} from "../../utility/sendResponse/sendResponse.js";
 
 // create user payload method
 const createUser = async (req: Request, res: Response) => {

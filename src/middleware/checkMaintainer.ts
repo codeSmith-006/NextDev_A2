@@ -1,6 +1,6 @@
 import type { NextFunction, Request, Response } from "express";
-import decodedJWT from "../utility/JWT/decodeJWT";
-import { errorResponse } from "../utility/sendResponse/sendResponse";
+import decodedJWT from "../utility/JWT/decodeJWT.js";
+import { errorResponse } from "../utility/sendResponse/sendResponse.js";
 
 export const checkMaintainer = async (
   req: Request,

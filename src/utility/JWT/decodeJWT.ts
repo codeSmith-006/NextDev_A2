@@ -1,5 +1,5 @@
 import jwt from "jsonwebtoken";
-import config from "../env_config";
+import config from "../env_config.js";
 // const decoded = (await jwt.verify(
 //     authorization,
 //     config.jwt_secret as string,

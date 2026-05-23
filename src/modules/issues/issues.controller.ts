@@ -1,9 +1,9 @@
 import type { Request, Response } from "express";
-import { issuesServices } from "./issues.services";
+import { issuesServices } from "./issues.services.js";
 import {
   errorResponse,
   successResponse,
-} from "../../utility/sendResponse/sendResponse";
+} from "../../utility/sendResponse/sendResponse.js";
 
 // posting issue controller
 const createIssues = async (req: Request, res: Response) => {

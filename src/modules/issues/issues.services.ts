@@ -1,8 +1,8 @@
 import jwt from "jsonwebtoken";
-import config from "../../utility/env_config";
-import { pool } from "../../db/connectDB";
-import type { IIssueReporter, IIssues } from "./issues.interface";
-import decodedJWT from "../../utility/JWT/decodeJWT";
+import config from "../../utility/env_config.js";
+import { pool } from "../../db/connectDB.js";
+import type { IIssueReporter, IIssues } from "./issues.interface.js";
+import decodedJWT from "../../utility/JWT/decodeJWT.js";
 
 // posting issues into database
 const createIssueIntoDB = async (payload: IIssues, auth_token: any) => {

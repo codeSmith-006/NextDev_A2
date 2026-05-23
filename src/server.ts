@@ -1,6 +1,6 @@
-import app from "./app";
-import { initDB } from "./db/connectDB";
-import config from "./utility/env_config";
+import app from "./app.js";
+import { initDB } from "./db/connectDB.js";
+import config from "./utility/env_config.js";
 import net from "node:net";
 
 // the main function of the server

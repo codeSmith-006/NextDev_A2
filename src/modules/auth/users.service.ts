@@ -1,7 +1,7 @@
-import { pool } from "../../db/connectDB";
-import config from "../../utility/env_config";
-import { errorResponse } from "../../utility/sendResponse/sendResponse";
-import type { ILoginUser, IUsers } from "./users.interface";
+import { pool } from "../../db/connectDB.js";
+import config from "../../utility/env_config.js";
+import { errorResponse } from "../../utility/sendResponse/sendResponse.js";
+import type { ILoginUser, IUsers } from "./users.interface.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 

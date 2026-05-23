@@ -1,8 +1,8 @@
 import type { NextFunction, Request, Response } from "express";
-import type { IIssueReporter } from "../modules/issues/issues.interface";
-import decodedJWT from "../utility/JWT/decodeJWT";
-import { pool } from "../db/connectDB";
-import { errorResponse } from "../utility/sendResponse/sendResponse";
+import type { IIssueReporter } from "../modules/issues/issues.interface.js";
+import decodedJWT from "../utility/JWT/decodeJWT.js";
+import { pool } from "../db/connectDB.js";
+import { errorResponse } from "../utility/sendResponse/sendResponse.js";
 
 export const updateRole = async (
   req: Request,

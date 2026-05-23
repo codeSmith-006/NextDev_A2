@@ -3,8 +3,8 @@ import express, {
   type Request,
   type Response,
 } from "express";
-import { usersRouter } from "./modules/auth/users.route";
-import { issuesRouter } from "./modules/issues/issues.route";
+import { usersRouter } from "./modules/auth/users.route.js";
+import { issuesRouter } from "./modules/issues/issues.route.js";
 import cors from "cors";
 
 const app: Application = express();

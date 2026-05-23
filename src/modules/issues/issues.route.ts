@@ -1,7 +1,7 @@
 import { Router } from "express";
-import { issuesController } from "./issues.controller";
-import { checkMaintainer } from "../../middleware/checkMaintainer";
-import { updateRole } from "../../middleware/updateRole";
+import { issuesController } from "./issues.controller.js";
+import { checkMaintainer } from "../../middleware/checkMaintainer.js";
+import { updateRole } from "../../middleware/updateRole.js";
 
 const router = Router();
 
