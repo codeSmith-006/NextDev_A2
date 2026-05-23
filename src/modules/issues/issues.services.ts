@@ -2,6 +2,7 @@ import jwt from "jsonwebtoken";
 import config from "../../utility/env_config";
 import { pool } from "../../db/connectDB";
 import type { IIssueReporter, IIssues } from "./issues.interface";
+import decodedJWT from "../../utility/JWT/decodeJWT";
 
 // posting issues into database
 const createIssueIntoDB = async (payload: IIssues, auth_token: any) => {
@@ -132,8 +133,90 @@ const getSingleIssue = async (id: number) => {
 
   return formattedIssues;
 };
+
+// update issue service PATCH, for the owner of the issue and the maintainer
+const updateIssueService = async (payload: any, auth_token: any, id: any) => {
+  const { title, description, type, status } = payload;
+
+  const { authorization } = await auth_token;
+
+  // query for admin
+  const adminQuery = `
+    UPDATE issues 
+    SET title = COALESCE($1, title), description = COALESCE($2, description), type = COALESCE($3, type), status = COALESCE($4, status)
+
+    WHERE id = $5 RETURNING *
+    `;
+
+  // query for user
+  const userQuery = `
+    UPDATE issues 
+    SET title = COALESCE($1, title), description = COALESCE($2, description), type = COALESCE($3, type)
+
+    WHERE id = $4 RETURNING *
+    `;
+
+  // parameter for admin query
+  const adminParam = [title, description, type, status, id];
+  // param for user query
+  const userParam = [title, description, type, id];
+
+  // decode token for check if admin
+  const { role } = await decodedJWT(authorization);
+
+  const isAdmin = role === "maintainer" && true;
+
+  // console.log(isAdmin);
+  if (isAdmin) {
+    const updatedIssue = await pool.query(adminQuery, adminParam);
+
+    // console.log(updatedIssue);
+
+    return updatedIssue.rows;
+  } else {
+    const updatedIssue = await pool.query(userQuery, userParam);
+    // console.log(updatedIssue);
+    return updatedIssue.rows;
+  }
+
+  // now query for update the fields
+  // const updatedIssue = await pool.query(
+  //   `
+  //   UPDATE issues
+  //   SET title = COALESCE($1, title), description = COALESCE($2, description), type = COALESCE($3, type)
+
+  //   WHERE id = $4 RETURNING *
+  //   `,
+  //   [title, description, type, id],
+  // );
+};
+
+// method for delete issue
+const deleteIssuesFromDB = async (paramId: any) => {
+  const id = Number(paramId);
+  // first check that the issue exist or not
+  const isExist = await pool.query(
+    `
+    SELECT * FROM issues WHERE id=$1
+    `,
+    [id],
+  );
+
+  if (isExist.rowCount === 0) {
+    throw new Error("Issue not found");
+  }
+  const deleteIssue = await pool.query(
+    `
+    DELETE FROM issues WHERE id=$1
+    `,
+    [id],
+  );
+};
+
 export const issuesServices = {
   createIssueIntoDB,
   getIssuesFromDB,
   getSingleIssue,
+  updateIssueService,
+  deleteIssuesFromDB,
 };
